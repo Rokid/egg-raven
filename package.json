@@ -1,0 +1,61 @@
+{
+  "name": "egg-raven",
+  "version": "1.0.0",
+  "description": "",
+  "eggPlugin": {
+    "name": "raven"
+  },
+  "keywords": [
+    "egg",
+    "eggPlugin",
+    "egg-plugin"
+  ],
+  "dependencies": {
+    "raven": "^2.4.2"
+  },
+  "devDependencies": {
+    "egg": "^2.0.0",
+    "egg-bin": "^4.3.0",
+    "egg-ci": "^1.8.0",
+    "egg-mock": "^3.13.0",
+    "standard": "^11.0.0"
+  },
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "scripts": {
+    "test": "npm run lint -- --fix && egg-bin pkgfiles && npm run test-local",
+    "test-local": "egg-bin test",
+    "cov": "egg-bin cov",
+    "lint": "standard",
+    "ci": "egg-bin pkgfiles --check && npm run lint && npm run cov",
+    "pkgfiles": "egg-bin pkgfiles"
+  },
+  "files": [
+    "app",
+    "config",
+    "agent.js",
+    "app.js"
+  ],
+  "standard": {
+    "env": [
+      "mocha"
+    ],
+    "ignore": [
+      "coverage"
+    ]
+  },
+  "ci": {
+    "version": "8, 9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rokid/egg-raven.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Rokid/egg-raven/issues"
+  },
+  "homepage": "https://github.com/Rokid/egg-raven#readme",
+  "author": "",
+  "license": "MIT"
+}
