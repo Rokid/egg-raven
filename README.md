@@ -37,7 +37,7 @@ $ npm i egg-raven --save
 exports.raven = {
   enable: true,
   package: 'egg-raven',
-};
+}
 ```
 
 ## Configuration
@@ -45,14 +45,45 @@ exports.raven = {
 ```js
 // {app_root}/config/config.default.js
 exports.raven = {
-};
+  dsn: 'https://your:very_secure@sentry.server/app_id',
+  options: {
+    // refer to https://docs.sentry.io/clients/node/config/#optional-settings for more options detail.
+    autoBreadcrumbs: {
+      http: true
+    },
+    release: '721e41770371db95eee98ca2707686226b993eda'
+  }
+}
 ```
 
 see [config/config.default.js](config/config.default.js) for more detail.
 
 ## Example
 
-<!-- example here -->
+```js
+// app/controller/home.js
+const { Controller } = require('egg')
+
+class HomeController extends Controller {
+
+  async index () {
+    this.ctx.raven.captureBreadcrumb({
+      message: 'Received payment confirmation',
+      category: 'payment',
+      data: {
+        amount: 312
+      }
+    })
+  }
+
+  async update() {
+    throw new Error('will be recorded into sentry with detailed context')
+  }
+
+}
+
+module.exports = HomeController
+```
 
 ## Questions & Suggestions
 

@@ -28,20 +28,9 @@ Description here.
 
 ### 依赖的 egg 版本
 
-egg-raven 版本 | egg 1.x
---- | ---
-1.x | 😁
-0.x | ❌
-
-### 依赖的插件
-<!--
-
-如果有依赖其它插件，请在这里特别说明。如
-
-- security
-- multipart
-
--->
+egg-raven 版本 | egg 1.x | egg 2.x
+--- | --- | ---
+1.x | ❌ | ✅
 
 ## 开启插件
 
@@ -55,17 +44,48 @@ exports.raven = {
 
 ## 使用场景
 
-- Why and What: 描述为什么会有这个插件，它主要在完成一件什么事情。
-尽可能描述详细。
-- How: 描述这个插件是怎样使用的，具体的示例代码，甚至提供一个完整的示例，并给出链接。
+```js
+// app/controller/home.js
+const { Controller } = require('egg')
+
+class HomeController extends Controller {
+
+  async index () {
+    this.ctx.raven.captureBreadcrumb({
+      message: 'Received payment confirmation',
+      category: 'payment',
+      data: {
+        amount: 312
+      }
+    })
+  }
+
+  async update() {
+    throw new Error('这个错误会和它的上下文一起被记录至 Sentry')
+  }
+
+}
+
+module.exports = HomeController
+```
 
 ## 详细配置
 
+```js
+// {app_root}/config/config.default.js
+exports.raven = {
+  dsn: 'https://your:very_secure@sentry.server/app_id',
+  options: {
+    // 查看 https://docs.sentry.io/clients/node/config/#optional-settings 获取更多 options 信息
+    autoBreadcrumbs: {
+      http: true
+    },
+    release: '721e41770371db95eee98ca2707686226b993eda'
+  }
+}
+```
+
 请到 [config/config.default.js](config/config.default.js) 查看详细配置项说明。
-
-## 单元测试
-
-<!-- 描述如何在单元测试中使用此插件，例如 schedule 如何触发。无则省略。-->
 
 ## 提问交流
 

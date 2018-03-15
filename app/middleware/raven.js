@@ -6,14 +6,9 @@ module.exports = options => {
   return raven
 
   function raven (ctx, next) {
-    return Raven.context(async function () {
-      Raven.setContext({ req: ctx.request.req })
-      const ret = await next().then(() => {
-        Raven.mergeContext({ user: ctx.user })
-      }, err => {
-        Raven.mergeContext({ user: ctx.user })
-        throw err
-      })
+    return Raven.context({ req: ctx.request }, async function () {
+      const ret = await next()
+      Raven.mergeContext({ req: ctx.request })
       return ret
     })
   }

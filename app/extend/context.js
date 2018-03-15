@@ -1,10 +1,13 @@
-
+'use strict'
 // eslint-disable-next-line node/no-deprecated-api
 const domain = require('domain')
 const Raven = require('raven')
 const { utils: eggUtils } = require('egg-core')
 
 module.exports = {
+  get raven () {
+    return this.app.raven
+  },
   runInBackground (scope) {
     const ctx = this
     const start = Date.now()

@@ -7,5 +7,7 @@
  */
 exports.raven = {
   dsn: '',
-  options: {}
+  options: {
+    // refer to https://docs.sentry.io/clients/node/config/#optional-settings for more options detail.
+  }
 }
