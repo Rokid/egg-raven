@@ -7,15 +7,5 @@ module.exports = app => {
   app.config.coreMiddleware.push('raven')
   app.raven = Raven
 
-  app.beforeStart(async () => {
-    Raven.config(dsn, options).install()
-  })
-
-  app.on('error', err => {
-    Raven.captureException(err, (ravenError, eventId) => {
-      if (ravenError) {
-        app.coreLogger.error(ravenError)
-      }
-    })
-  })
+  Raven.config(dsn, options).install()
 }
