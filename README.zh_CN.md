@@ -58,6 +58,9 @@ class HomeController extends Controller {
         amount: 312
       }
     })
+    this.ctx.runInBackground(async function backgroundJob () {
+      throw new Error('这个错误会和上下文、Breadcrumb 一起被记录至 Sentry')
+    })
   }
 
   async update() {

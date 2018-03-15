@@ -74,6 +74,9 @@ class HomeController extends Controller {
         amount: 312
       }
     })
+    this.ctx.runInBackground(async function backgroundJob () {
+      throw new Error('will be recorded into sentry with breadcrumbs')
+    })
   }
 
   async update() {
