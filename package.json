@@ -1,7 +1,7 @@
 {
   "name": "egg-raven",
   "version": "1.0.0",
-  "description": "",
+  "description": "A sentry/raven plugin to egg",
   "eggPlugin": {
     "name": "raven"
   },
