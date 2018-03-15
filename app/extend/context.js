@@ -25,7 +25,9 @@ function runInBackground (scope) {
       ctx.coreLogger.info('[egg:background] task:%s success (%dms)', taskName, Date.now() - start)
     } catch (err) {
       Raven.captureException(err, (ravenError, eventId) => {
-        ctx.coreLogger.error(ravenError)
+        if (ravenError) {
+          ctx.coreLogger.error(ravenError)
+        }
       })
       ctx.coreLogger.info('[egg:background] task:%s fail (%dms)', taskName, Date.now() - start)
       ctx.coreLogger.error(err)
